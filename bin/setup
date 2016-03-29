@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Brewing up your setup"
+brew update
+brew install node Caskroom/cask/java
+
+echo "Installing ALL the packages, libraries, etc."
+npm install
