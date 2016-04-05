@@ -6,3 +6,4 @@ brew install node Caskroom/cask/java
 
 echo "Installing ALL the packages, libraries, etc."
 npm install
+npm install -g protractor
