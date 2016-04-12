@@ -1,10 +1,17 @@
 module.exports = function(config) {
     config.set({
-        basePath: '',
+        basePath: './',
         frameworks: ['jasmine'],
 
         // the spec-bundle defines and includes libraries and spec files
-        files: [ { pattern: './spec/config/spec-bundle.js', watched: false } ],
+        files: [
+            { pattern: 'spec/config/spec-bundle.js', watched: false },
+            { pattern: 'app/**/*.html', included: false, watched: false }
+        ],
+        proxies: {
+            "/app/": "/base/app/",
+            "/dist/": "/base/dist/"
+        },
         preprocessors: { './spec/config/spec-bundle.js': ['webpack'] },
 
         webpackServer: { noInfo: true },
