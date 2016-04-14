@@ -1,10 +1,14 @@
 import {AppComponent} from "../app/app.component";
-import {componentSuite} from "./support/controller-test";
+import {componentTest} from "./support/controller-test";
+import {describe, it} from "angular2/testing";
 
-componentSuite((componentTest) => {
-    describe("AppComponent", () => {
-        it("does things", componentTest(AppComponent, (component) => {
-            expect(component.title).toEqual("Hello, Angular");
-        }));
-    });
+describe("AppComponent", () => {
+  it("presents the title based on the underlying attribute", componentTest(AppComponent, (component, domEl, fixture) => {
+    expect(domEl.innerText).toContain("Hello, Angular");
+
+    component.title = "Hello, World!";
+    fixture.detectChanges();
+
+    expect(domEl.innerText).toContain("Hello, World");
+  }));
 });
