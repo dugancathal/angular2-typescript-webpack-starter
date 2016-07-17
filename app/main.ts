@@ -1,5 +1,4 @@
-import 'angular2/bundles/angular2-polyfills';
 import {AppComponent} from "./app.component";
-import {bootstrap} from "angular2/platform/browser";
+import {bootstrap} from "@angular/platform-browser-dynamic";
 
 bootstrap(AppComponent);

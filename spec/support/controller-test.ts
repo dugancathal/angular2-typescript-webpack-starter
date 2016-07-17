@@ -1,26 +1,24 @@
-import {TestComponentBuilder, inject, beforeEach} from "angular2/testing";
-import {Type} from 'angular2/src/facade/lang';
+import {inject} from "@angular/core/testing";
+import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing";
 
 export type ComponentTestIt = (ComponentRef, ElementRef, ComponentFixture) => void;
-export type ComponentTestFunction = (ComponentRef, ComponentTestIt) => Function;
+export type ComponentTestFunction = (any, ComponentTestIt) => Function;
 type Suite = (ComponentTestFunction) => void;
 
-export const componentTest:ComponentTestFunction = (componentClass: Type, testCallback: ComponentTestIt) => {
-    let tcb;
-    beforeEach(inject([TestComponentBuilder], (_tcb) => {
-        tcb = _tcb
-    }));
-
-    let compileDirectiveAndRunTest:Function = (done) => {
+export const componentTest:ComponentTestFunction = (componentClass:any, testCallback:ComponentTestIt) => {
+    let compileDirectiveAndRunTest:Function = inject([TestComponentBuilder], (tcb:TestComponentBuilder) => {
         tcb.createAsync(componentClass).then((fixture) => {
             let component = fixture.componentInstance,
                 element = fixture.nativeElement;
 
             fixture.detectChanges();
             testCallback(component, element, fixture);
-            done();
-        }).catch(e => done.fail(e));
-    };
+        });
+    });
 
     return compileDirectiveAndRunTest;
 };
+
+export function compTest(desc:string, component:any, test:ComponentTestIt) {
+    it(desc, () => componentTest(component, test)());
+}
