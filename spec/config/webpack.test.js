@@ -4,7 +4,7 @@ var DefinePlugin = require('webpack/lib/DefinePlugin');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     resolve: {
         // When a module is defined, it might actually exist with the following extensions
         extensions: ['', '.ts', '.js'],

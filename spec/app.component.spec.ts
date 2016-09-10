@@ -1,13 +1,21 @@
 import {AppComponent} from "../app/app.component";
-import {compTest} from "./support/controller-test";
+import {TestBed} from "@angular/core/testing";
 
 describe("AppComponent", () => {
-  compTest("presents the title based on the underlying attribute", AppComponent, (component, domEl, fixture) => {
-    expect(domEl.innerText).toContain("Hello, Angular");
-  
-    component.title = "Hello, World!";
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent]
+    });
+  });
+
+  it("presents the title based on the underlying attribute", () => {
+    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
+    expect(fixture.nativeElement.innerText).toContain("Hello, Angular");
   
-    expect(domEl.innerText).toContain("Hello, World");
+    fixture.componentInstance.title = "Hello, World!";
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.innerText).toContain("Hello, World");
   });
 });
